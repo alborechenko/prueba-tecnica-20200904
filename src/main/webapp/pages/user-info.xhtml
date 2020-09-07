@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">
-<ui:composition template="layout.xhtml">
-    <ui:define name="content">
-        <h:form id="productForm">
-            <p:panel header="Información Usuario">
-                <h:panelGrid columns="1">
-                    <p:outputLabel for="email" value="Email: " />
-                    <p:inputText id="email" value="#{userController.user.email}" />
-                    <p:outputLabel for="firstName" value="Nombre: " />
-                    <p:inputText id="firstName" value="#{userController.user.firstName}" />
-                    <p:outputLabel for="lastName1" value="Apellido Paterno: " />
-                    <p:inputText id="lastName1" value="#{userController.user.lastName1}" />
-                    <p:outputLabel for="lastName2" value="Apellido Materno: " />
-                    <p:inputText id="lastName2" value="#{userController.user.lastName2}" />
-                    <p:outputLabel for="birthDate" value="Fecha Nacimiento: " />
-                    <p:inputText id="birthDate" value="#{userController.user.birthDate}" />
-                    <h:commandButton value="Save" action="#{userController.save}" />
-                </h:panelGrid>
-            </p:panel>
-        </h:form>
-    </ui:define>
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../layout.xhtml">
+
+	<ui:define name="content">
+		<h:form id="userForm">
+			<p:panel header="Información Usuario">
+				<h:panelGrid columns="1">
+					<p:outputLabel for="name" value="Nombre: " />
+					<p:inputText id="name" value="#{userController.user.name}" />
+					<p:outputLabel for="email" value="Email: " />
+					<p:inputText id="email" value="#{userController.user.email}" />
+					<p:outputLabel for="firstName" value="Nombre: " />
+					<p:inputText id="birthDate" value="#{userController.user.birthDate}" />
+					<h:commandButton value="Guardar" action="#{userController.saveUser}" />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+
 </ui:composition>
 </html>

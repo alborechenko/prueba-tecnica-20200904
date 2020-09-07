@@ -12,7 +12,6 @@ import java.sql.Date;
 
 @Data
 @Entity
-@NoArgsConstructor
 public class User {
 	
     @Id
@@ -20,10 +19,6 @@ public class User {
     private Long id;
     @Column
     private String name;
-    @Column
-    private String lastName1;
-    @Column
-    private String lastName2;
     @Column
     private String email;
     @Column
