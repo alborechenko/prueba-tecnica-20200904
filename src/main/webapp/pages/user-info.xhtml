@@ -3,6 +3,7 @@
 		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <ui:composition template="layout.xhtml">
@@ -12,11 +13,24 @@
 			<p:panel header="Información Usuario">
 				<h:panelGrid columns="1">
 					<p:outputLabel for="name" value="Nombre: " />
-					<p:inputText id="name" value="#{userController.user.name}" />
+					<p:inputText id="name" value="#{userController.user.name}"  required="true"
+						requiredMessage="Debe de proporcional el nombre completo."
+						validatorMessage="El nombre no puede contener números.">
+						<f:validateRegex pattern="[a-zA-Z\s]*$"/>
+<!-- 						<p:keyFilter regEx="/[a-zA-ZÀ-ú\\s\\' ]+/"/> -->
+					</p:inputText>
+					<p:message for="name" />
 					<p:outputLabel for="birthDate" value="Fecha de Nacimiento: " />
-					<p:calendar id="birthDate" value="#{userController.user.birthDate}" />
+					<p:calendar id="birthDate" value="#{userController.user.birthDate}" required="true"
+						requiredMessage="Debe de proporcional la fecha de nacimiento."/>
+					<p:message for="birthDate" />
 					<p:outputLabel for="email" value="Email: " />
-					<p:inputText id="email" value="#{userController.user.email}" />
+					<p:inputText id="email" value="#{userController.user.email}" required="true"
+						requiredMessage="Debe de proporcional un email."
+						validatorMessage="Email con formato invalido">
+						<f:validateRegex pattern="[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"></f:validateRegex>
+					</p:inputText>
+					<p:message for="email" />
 					<h:commandButton value="Guardar" action="#{userController.saveUser}" />
 				</h:panelGrid>
 			</p:panel>
