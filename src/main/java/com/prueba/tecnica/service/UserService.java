@@ -1,5 +1,6 @@
 package com.prueba.tecnica.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.prueba.tecnica.dto.UserDto;
@@ -20,7 +21,7 @@ public interface UserService {
 	 * @param email    Filtro de correo.
 	 * @return listado de usuarios.
 	 */
-	public List<UserDto> getUsers(String dateFrom, String dateTo, String email);
+	public List<UserDto> getUsers(Date dateFrom, Date dateTo, String email);
 
 	/**
 	 * Método para la obtención información de un usuario.
@@ -44,3 +45,4 @@ public interface UserService {
 	 */
 	public void removeUser(Long userId);
 }
+

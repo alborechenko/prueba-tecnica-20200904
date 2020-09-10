@@ -5,7 +5,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-<ui:composition template="../layout.xhtml">
+<ui:composition template="layout.xhtml">
 
 	<ui:define name="content">
 		<h:form id="userForm">
@@ -13,10 +13,10 @@
 				<h:panelGrid columns="1">
 					<p:outputLabel for="name" value="Nombre: " />
 					<p:inputText id="name" value="#{userController.user.name}" />
+					<p:outputLabel for="birthDate" value="Fecha de Nacimiento: " />
+					<p:calendar id="birthDate" value="#{userController.user.birthDate}" />
 					<p:outputLabel for="email" value="Email: " />
 					<p:inputText id="email" value="#{userController.user.email}" />
-					<p:outputLabel for="firstName" value="Nombre: " />
-					<p:inputText id="birthDate" value="#{userController.user.birthDate}" />
 					<h:commandButton value="Guardar" action="#{userController.saveUser}" />
 				</h:panelGrid>
 			</p:panel>

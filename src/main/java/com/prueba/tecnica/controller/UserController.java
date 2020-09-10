@@ -12,7 +12,7 @@ import com.prueba.tecnica.service.UserService;
 @Scope(value = "session")
 @Component(value = "userController")
 @ELBeanName(value = "userController")
-@Join(path = "/user", to = "/pages/user-info.jsf")
+@Join(path = "/user", to = "/pages/user-info.xhtml")
 public class UserController {
 
 	@Autowired
@@ -26,6 +26,7 @@ public class UserController {
 	 * @return La url del listado de usuarios
 	 */
 	public String saveUser() {
+//		System.out.println("UserController.saveUser()");
 
 		userService.saveUser(user);
 		user = new UserDto();
@@ -38,10 +39,25 @@ public class UserController {
 	 * @param userId Identificador del usuario.
 	 * @return Información del usuario.
 	 */
-	public UserDto getUser() {
+	public UserDto getUser() {		
+//		System.out.println("UserController.getUser()");
+		return user;
+	}
 
-		return userService.getUser(null);
+	/**
+	 * Obtiene el usuario con el id envíado.
+	 * 
+	 * @param userId Identificador del usuario.
+	 * @return Información del usuario.
+	 */
+	public UserDto getUserInfo(Long userId) {
+//		System.out.println("UserController.getUserInfo()");
 
+		if(userId != null) {
+		user = userService.getUser(userId);
+		} 
+		
+		return user;
 	}
 
 }

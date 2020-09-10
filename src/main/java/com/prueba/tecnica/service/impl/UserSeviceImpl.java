@@ -1,16 +1,19 @@
 package com.prueba.tecnica.service.impl;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.prueba.tecnica.dto.UserDto;
+import com.prueba.tecnica.entity.User;
 import com.prueba.tecnica.repository.UserRepository;
 import com.prueba.tecnica.service.UserService;
-import com.prueba.tecnica.utils.Utils;
 
+@Service
 public class UserSeviceImpl implements UserService {
 	
 
@@ -18,12 +21,24 @@ public class UserSeviceImpl implements UserService {
 	private UserRepository userRepository;
 
 	/* (non-Javadoc)
-     * @see com.prueba.tecnica.service.UserService#getUsers(java.lang.String,java.lang.String,java.lang.String)
+     * @see com.prueba.tecnica.service.UserService#getUsers(java.util.Date,java.util.Date,java.lang.String)
      */
 	@Override
-	public List<UserDto> getUsers(String dateFrom, String dateTo, String email) {
+	public List<UserDto> getUsers(Date dateFrom, Date dateTo, String email) {
 		
-		return this.getTestUsersList();
+		List<UserDto> listUsers = new ArrayList<UserDto>();
+		
+		if (dateFrom != null && dateTo != null) {
+			listUsers = userRepository.findUsersDateFilters(new java.sql.Date(dateFrom.getTime()),
+					new java.sql.Date(dateTo.getTime()), email);
+		} else if (dateFrom != null && dateTo == null) {
+			listUsers = userRepository.findUsersDateFilters(new java.sql.Date(dateFrom.getTime()),
+					new java.sql.Date(Calendar.getInstance().getTime().getTime()), email);
+		} else if (dateFrom == null) {
+			listUsers = userRepository.findUsersNoDateFilters(email);
+		}
+		
+		return listUsers;
 	}
 
 	/* (non-Javadoc)
@@ -33,7 +48,7 @@ public class UserSeviceImpl implements UserService {
 	public UserDto getUser(Long userId) {
 		//userRepository.getOne(userId);
 		
-		return this.getTestUser();
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -41,7 +56,12 @@ public class UserSeviceImpl implements UserService {
      */
 	@Override
 	public void saveUser(UserDto userDto) {
-		// TODO Auto-generated method stub
+		User user = new User();
+		user.setName(userDto.getName());
+		user.setEmail(userDto.getEmail());
+		user.setBirthDate(new java.sql.Date(userDto.getBirthDate().getTime()));
+		
+		userRepository.save(user);
 
 	}
 
@@ -51,29 +71,6 @@ public class UserSeviceImpl implements UserService {
 	@Override
 	public void removeUser(Long userId) {
 		userRepository.deleteById(userId);
-	}
-	
-	private UserDto getTestUser() {
-		UserDto user = new UserDto();
-
-		user.setName("Usuario Prueba Uno");
-		user.setEmail("usuario.prueba.uno@mail.com");
-		user.setBirthDate(Utils.getStrDateFromDate(new Date((new java.util.Date()).getTime()), "dd/MM/YYYY"));
-		
-		return user;
-	}
-	
-	private List<UserDto> getTestUsersList() {
-		List<UserDto> usersList = new ArrayList<UserDto>();
-		UserDto user1 = new UserDto(new Long(1), "Usuario Prueba Uno", "usuario.prueba.uno@mail.com",
-				Utils.getStrDateFromDate(new Date((new java.util.Date()).getTime()), "dd/MM/YYYY"));
-		UserDto user2 = new UserDto(new Long(2), "Usuario Prueba Dos", "usuario.prueba.dos@mail.com",
-				Utils.getStrDateFromDate(new Date((new java.util.Date()).getTime()), "dd/MM/YYYY"));
-
-		usersList.add(user1);
-		usersList.add(user2);
-
-		return usersList;
 	}
 	
 

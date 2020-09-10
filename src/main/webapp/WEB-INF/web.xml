@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="3.1">
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	version="3.1">
 
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
@@ -14,13 +15,20 @@
 		<param-name>primefaces.CLIENT_SIDE_VALIDATION</param-name>
 		<param-value>true</param-value>
 	</context-param>
-
+	
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		<listener-class>com.sun.faces.config.ConfigureListener
+		</listener-class>
 	</listener>
 
 	<listener>
-		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener
+		</listener-class>
 	</listener>
 
 </web-app>
